@@ -2,10 +2,7 @@ mod ar_configs;
 mod templates;
 mod user_agent;
 
-use std::{
-    collections::HashMap,
-    sync::Arc,
-};
+use std::sync::Arc;
 
 use axum::{
     extract::State,
@@ -71,7 +68,7 @@ struct AppConfig {
     /// The base URL for this application, including the protocol and domain.
     base_url: String,
     /// List of social links to display like a carrd.co page.
-    social_links: HashMap<String, SocialLink>,
+    social_links: Vec<SocialLink>,
     /// Configuration for the iOS banner.
     ios_banner: BannerConfig,
 }
@@ -83,6 +80,9 @@ struct SocialLink {
     name: String,
     /// The URL to open when the button is clicked.
     url: String,
+    /// The name of a SVG file in `assets/svg` with the `.svg` extension.
+    /// If `None`, no icon will be displayed.
+    icon: Option<String>,
 }
 
 /// Configuration for the iOS banner that renders at the bottom of an AR view.

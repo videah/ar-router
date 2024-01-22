@@ -4,7 +4,17 @@ base_url = "https://card.videah.net"
 title = "Videah"
 subtitle = "Werewolf IRL • he/it"
 
-[social_links]
-website = { name = "My Website", url = "https://videah.net"}
-bluesky = { name = "Bluesky", url = "https://bsky.app"}
-youtube = { name = "YouTube", url = "https://www.youtube.com/@videah"}
+[[social_links]]
+name = "My Website"
+url = "https://videah.net"
+icon = "website.svg"
+
+[[social_links]]
+name = "Bluesky"
+url = "https://bsky.app"
+icon = "bluesky.svg"
+
+[[social_links]]
+name = "YouTube"
+url = "https://www.youtube.com/@videah"
+icon = "youtube.svg"
