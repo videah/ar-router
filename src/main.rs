@@ -39,8 +39,7 @@ pub enum ARFlow {
     /// The user is using an iOS device and we want to present a 3D model to them.
     /// We use the official ARKit web flow which is largely undocumented. We create a fake anchor
     /// `<img>` tag and then click it in JavaScript.
-    #[allow(non_camel_case_types)]
-    iOS,
+    Apple,
     /// The user is using an unknown device or we don't want to present a 3D model to them.
     None,
 }
@@ -155,7 +154,7 @@ async fn route_to_model(
 
     let ar_flow = match os_name.as_ref() {
         "Android" => ARFlow::Android,
-        "iOS" => ARFlow::iOS,
+        "iOS" => ARFlow::Apple,
         _ => ARFlow::None,
     };
     debug!("ARFlow: {ar_flow:?} | User agent: {user_agent}");
