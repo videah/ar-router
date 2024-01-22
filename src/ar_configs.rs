@@ -13,6 +13,7 @@ pub struct AppleArConfig {
     /// The path to a `.usdz` 3D model file.
     pub model_path: String,
     /// The URL to some banner HTML that will be rendered at the bottom of the AR view.
+    /// Has to be served using HTTPS to meet Apple's security requirements.
     pub banner_url: String,
     /// The URL to be shared when using the share button in the AR view.
     pub share_url: String,
@@ -31,6 +32,7 @@ impl Display for AppleArConfig {
 /// The AR configuration for Android devices.
 pub struct AndroidArConfig {
     /// The path to a `.glb` or `.gltf` 3D model file.
+    /// Has to be a full URL with `https://` and domain.
     pub model_path: String,
     /// The title of the model, displayed in the AR view.
     pub title: String,

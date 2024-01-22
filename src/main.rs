@@ -119,7 +119,7 @@ async fn main() -> anyhow::Result<()> {
                     share_url: config.base_url.clone(),
                 },
                 android: AndroidArConfig {
-                    model_path: "/assets/model.glb".to_string(),
+                    model_path: format!("{}/assets/model.glb", config.base_url),
                     title: "Videah".to_string(),
                     fallback_url: config.base_url.clone(),
                 },
