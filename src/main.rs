@@ -61,6 +61,8 @@ struct AppConfig {
     base_url: String,
     /// List of social links to display like a carrd.co page.
     social_links: HashMap<String, SocialLink>,
+    /// Configuration for the iOS banner.
+    ios_banner: BannerConfig,
 }
 
 /// A social link to be displayed as a button.
@@ -70,6 +72,15 @@ struct SocialLink {
     name: String,
     /// The URL to open when the button is clicked.
     url: String,
+}
+
+/// Configuration for the iOS banner that renders at the bottom of an AR view.
+#[derive(Clone, Default, Debug, Serialize, Deserialize)]
+struct BannerConfig {
+    /// The title of the banner, displayed with a large font.
+    title: String,
+    /// The subtitle of the banner, displayed with a smaller font.
+    subtitle: String,
 }
 
 #[tokio::main]
@@ -87,6 +98,7 @@ async fn main() -> anyhow::Result<()> {
     let app = Router::new()
         .route("/", get(index))
         .route("/ar", get(route_to_model))
+        .route("/ios-banner", get(ios_banner))
         .nest_service("/assets", serve_assets)
         .with_state(AppState {
             user_agent_parser: Arc::new(UserAgentParser::from_str(regex)?),
@@ -126,6 +138,13 @@ async fn route_to_model(
 
     templates::Index {
         ar_flow,
+        config: state.config.clone(),
+    }
+}
+
+/// Provides the HTML for the iOS banner, which is rendered at the bottom of an AR view.
+async fn ios_banner(State(state): State<AppState>) -> templates::Banner {
+    templates::Banner {
         config: state.config.clone(),
     }
 }

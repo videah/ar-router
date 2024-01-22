@@ -1,5 +1,9 @@
 base_url = "https://card.videah.net"
 
+[ios_banner]
+title = "Videah"
+subtitle = "Werewolf IRL • he/it"
+
 [social_links]
 website = { name = "My Website", url = "https://videah.net"}
 bluesky = { name = "Bluesky", url = "https://bsky.app"}

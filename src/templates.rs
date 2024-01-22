@@ -18,3 +18,12 @@ pub struct Index {
     /// The application configuration, as defined in `ar-router.toml`.
     pub config: Arc<AppConfig>,
 }
+
+/// A small banner that renders at the bottom of an iOS AR View.
+/// The documentation for this feature can be found [here.](https://developer.apple.com/documentation/arkit/arkit_in_ios/adding_an_apple_pay_button_or_a_custom_action_in_ar_quick_look#3402837)
+#[derive(Template)]
+#[template(path = "ios_banner.html")]
+pub struct Banner {
+    /// The application configuration, as defined in `ar-router.toml`.
+    pub config: Arc<AppConfig>,
+}
