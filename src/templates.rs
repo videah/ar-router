@@ -3,6 +3,7 @@ use std::sync::Arc;
 use askama::Template;
 
 use crate::{
+    ar_configs::ArConfigs,
     ARFlow,
     AppConfig,
 };
@@ -17,6 +18,9 @@ pub struct Index {
     pub ar_flow: ARFlow,
     /// The application configuration, as defined in `ar-router.toml`.
     pub config: Arc<AppConfig>,
+    /// The AR configuration for each platform, constructs the URL that will be used to load the
+    /// 3D model.
+    pub ar_configs: Arc<ArConfigs>,
 }
 
 /// A small banner that renders at the bottom of an iOS AR View.

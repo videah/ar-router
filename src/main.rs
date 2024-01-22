@@ -1,3 +1,4 @@
+mod ar_configs;
 mod templates;
 mod user_agent;
 
@@ -22,7 +23,14 @@ use serde::{
 use tokio::net::TcpListener;
 use user_agent_parser::UserAgentParser;
 
-use crate::user_agent::UserAgent;
+use crate::{
+    ar_configs::{
+        AndroidArConfig,
+        AppleArConfig,
+        ArConfigs,
+    },
+    user_agent::UserAgent,
+};
 
 /// Which AR flow to use when the page is loaded, if any.
 #[derive(PartialEq, Debug)]
@@ -52,6 +60,9 @@ struct AppState {
     user_agent_parser: Arc<UserAgentParser>,
     /// The application configuration, as defined in `ar-router.toml`.
     config: Arc<AppConfig>,
+    /// The AR configuration for each platform, constructs the URL that will be used to load the
+    /// 3D model.
+    ar_configs: Arc<ArConfigs>,
 }
 
 /// The application configuration, as defined in `ar-router.toml`.
@@ -102,6 +113,18 @@ async fn main() -> anyhow::Result<()> {
         .nest_service("/assets", serve_assets)
         .with_state(AppState {
             user_agent_parser: Arc::new(UserAgentParser::from_str(regex)?),
+            ar_configs: Arc::new(ArConfigs {
+                apple: AppleArConfig {
+                    model_path: "/assets/model.usdz".to_string(),
+                    banner_url: format!("{}/ios-banner", config.base_url),
+                    share_url: config.base_url.clone(),
+                },
+                android: AndroidArConfig {
+                    model_path: "/assets/model.glb".to_string(),
+                    title: "Videah".to_string(),
+                    fallback_url: config.base_url.clone(),
+                },
+            }),
             config: Arc::new(config),
         });
 
@@ -116,6 +139,7 @@ async fn index(State(state): State<AppState>) -> templates::Index {
     templates::Index {
         ar_flow: ARFlow::None,
         config: state.config.clone(),
+        ar_configs: state.ar_configs.clone(),
     }
 }
 
@@ -139,6 +163,7 @@ async fn route_to_model(
     templates::Index {
         ar_flow,
         config: state.config.clone(),
+        ar_configs: state.ar_configs.clone(),
     }
 }
 
