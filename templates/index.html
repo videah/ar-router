@@ -9,7 +9,7 @@
     {% else if ar_flow == ARFlow::Android %}
         <script>
             const anchor = document.createElement('a');
-            anchor.setAttribute('href', 'intent://arvr.google.com/scene-viewer/1.0?file={{ config.base_url }}/assets/model.gib&mode=ar_only#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url={{ config.base_url }};end;');
+            anchor.setAttribute('href', 'intent://arvr.google.com/scene-viewer/1.0?file={{ config.base_url }}/assets/model.glb&mode=ar_only#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url={{ config.base_url }};end;');
             anchor.click();
         </script>
     {% endif %}
