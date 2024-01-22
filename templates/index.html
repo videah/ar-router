@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <title>AR Router</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+
+    {% if ar_flow == ARFlow::iOS %}
+        <script src="/assets/ios_open_automatically.js"></script>
+    {% else if ar_flow == ARFlow::Android %}
+        <script>
+            const anchor = document.createElement('a');
+            anchor.setAttribute('href', 'intent://arvr.google.com/scene-viewer/1.0?file={{ config.base_url }}/assets/model.gib&mode=ar_only#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url={{ config.base_url }};end;');
+            anchor.click();
+        </script>
+    {% endif %}
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 dark:bg-zinc-900">
+<div class="flex flex-col md:flex-row-reverse md:justify-center items-center h-screen">
+
+    <div class="bg-white dark:bg-zinc-800 shadow-lg md:m-4 w-full h-[70vh] md:h-full md:w-1/2">
+        <model-viewer ios-src="assets/model.usdz" class="w-full h-full" src="assets/model.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-target="0.15m 1m 0.08111m" camera-controls="" poster="assets/poster.png" shadow-intensity="1" camera-orbit="393.5deg 75.36deg 5.25m" field-of-view="30deg" ar-status="not-presenting"></model-viewer>
+    </div>
+
+    <div class="bg-white dark:bg-zinc-800 shadow-lg md:rounded-xl p-2 mt-2 md:m-4 w-full md:w-96">
+<!--        <h1 class="text-lg dark:text-white font-semibold mb-4">Videah</h1>-->
+        <div class="flex flex-col space-y-2">
+            {% for (name, link) in config.social_links %}
+                <a href="{{ link.url }}" class="btn text-lg font-semibold bg-gray-200 dark:bg-zinc-700 text-white p-4 rounded-lg hover:bg-blue-700">
+                    <object data="assets/svg/{{ name }}.svg" type="image/svg+xml" class="w-6 h-6 inline-block mr-2"></object>
+                    <span>{{ link.name }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+base_url = "http://10.0.2.2:8080"
+
+[social_links]
+website = { name = "My Website", url = "https://videah.net"}
+bluesky = { name = "Bluesky", url = "https://bsky.app"}
+youtube = { name = "YouTube", url = "https://www.youtube.com/@videah"}
