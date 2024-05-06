@@ -32,15 +32,15 @@ use crate::{
 /// Which AR flow to use when the page is loaded, if any.
 #[derive(PartialEq, Debug)]
 pub enum ARFlow {
-    /// The user is using an Android device and we want to present a 3D model to them.
+    /// The user is using an Android device, and we want to present a 3D model to them.
     /// We use the official ARCore web flow, where Scene Viewer is opened automatically using an
     /// intent.
     Android,
-    /// The user is using an iOS device and we want to present a 3D model to them.
+    /// The user is using an iOS device, and we want to present a 3D model to them.
     /// We use the official ARKit web flow which is largely undocumented. We create a fake anchor
     /// `<img>` tag and then click it in JavaScript.
     Apple,
-    /// The user is using an unknown device or we don't want to present a 3D model to them.
+    /// The user is using an unknown device, or we don't want to present a 3D model to them.
     None,
 }
 
@@ -142,7 +142,7 @@ async fn index(State(state): State<AppState>) -> templates::Index {
     }
 }
 
-/// The user scanned a QR code and we want to present them a 3D model and route them to the correct
+/// The user scanned a QR code, and we want to present them a 3D model and route them to the correct
 /// AR flow based on their device user agent.
 async fn route_to_model(
     State(state): State<AppState>,
@@ -154,7 +154,9 @@ async fn route_to_model(
 
     let ar_flow = match os_name.as_ref() {
         "Android" => ARFlow::Android,
-        "iOS" => ARFlow::Apple,
+        // The Vision Pro headset lies and presents a Mac OS X user agent, so we handle that even
+        // though macOS doesn't actually support AR.
+        "iOS" | "Mac OS X" => ARFlow::Apple,
         _ => ARFlow::None,
     };
     debug!("ARFlow: {ar_flow:?} | User agent: {user_agent}");

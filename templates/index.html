@@ -5,19 +5,24 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
     {% if ar_flow == ARFlow::Apple %}
-        <script>
-            const anchor = document.createElement('a');
+    <script>
+        const anchor = document.createElement('a');
+        // Check if the browser supports AR, so we don't accidentally download the model
+        // on macOS Safari.
+        const supportsAR = anchor.relList.supports('ar');
+        if (supportsAR) {
             anchor.setAttribute('rel', 'ar');
             anchor.appendChild(document.createElement('img'));
             anchor.setAttribute('href', '{{ ar_configs.apple.to_string()|safe }}');
             anchor.click();
-        </script>
+        }
+    </script>
     {% else if ar_flow == ARFlow::Android %}
-        <script>
-            const anchor = document.createElement('a');
-            anchor.setAttribute('href', '{{ ar_configs.android.to_string()|safe }}');
-            anchor.click();
-        </script>
+    <script>
+        const anchor = document.createElement('a');
+        anchor.setAttribute('href', '{{ ar_configs.android.to_string()|safe }}');
+        anchor.click();
+    </script>
     {% endif %}
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -25,21 +30,26 @@
 <div class="flex flex-col md:flex-row-reverse md:justify-center items-center h-screen">
 
     <div class="bg-white dark:bg-zinc-800 shadow-lg md:m-4 w-full h-[70vh] md:h-full md:w-1/2">
-        <model-viewer ios-src="{{ ar_configs.apple.to_string()|safe }}" class="w-full h-full" src="/assets/model.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-target="0.15m 1m 0.08111m" camera-controls="" poster="/assets/poster.png" shadow-intensity="1" camera-orbit="393.5deg 75.36deg 5.25m" field-of-view="30deg" ar-status="not-presenting"></model-viewer>
+        <model-viewer ios-src="{{ ar_configs.apple.to_string()|safe }}" class="w-full h-full" src="/assets/model.glb"
+                      ar="" ar-modes="webxr scene-viewer quick-look" camera-target="0.15m 1m 0.08111m"
+                      camera-controls="" poster="/assets/poster.png" shadow-intensity="1"
+                      camera-orbit="393.5deg 75.36deg 5.25m" field-of-view="30deg"
+                      ar-status="not-presenting"></model-viewer>
     </div>
 
     <div class="bg-white dark:bg-zinc-800 shadow-lg md:rounded-xl p-2 mt-2 md:m-4 w-full md:w-96">
-<!--        <h1 class="text-lg dark:text-white font-semibold mb-4">Videah</h1>-->
+        <!--        <h1 class="text-lg dark:text-white font-semibold mb-4">Videah</h1>-->
         <div class="flex flex-col space-y-2">
             {% for link in config.social_links %}
-                <a href="{{ link.url }}" class="btn text-lg font-semibold bg-gray-200 dark:bg-zinc-700 text-white p-4 rounded-lg hover:bg-blue-700">
-                    {% match link.icon %}
-                        {% when Some with (icon) %}
-                        <object data="assets/svg/{{ icon }}" type="image/svg+xml" class="w-6 h-6 inline-block mr-2"></object>
-                        {% when None %}
-                    {% endmatch %}
-                    <span>{{ link.name }}</span>
-                </a>
+            <a href="{{ link.url }}"
+               class="btn text-lg font-semibold bg-gray-200 dark:bg-zinc-700 text-white p-4 rounded-lg hover:bg-blue-700">
+                {% match link.icon %}
+                {% when Some with (icon) %}
+                <object data="assets/svg/{{ icon }}" type="image/svg+xml" class="w-6 h-6 inline-block mr-2"></object>
+                {% when None %}
+                {% endmatch %}
+                <span>{{ link.name }}</span>
+            </a>
             {% endfor %}
         </div>
     </div>
