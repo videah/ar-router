@@ -111,7 +111,6 @@ dependencies = [
  "log",
  "rust-embed",
  "serde",
- "tailwind-importer",
  "tokio",
  "toml",
  "user-agent-parser",
@@ -919,12 +918,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "paste"
-version = "1.0.15"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
-
-[[package]]
 name = "percent-encoding"
 version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1225,16 +1218,6 @@ name = "sync_wrapper"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2047c6ded9c721764247e62cd3b03c09ffc529b2ba5b10ec482ae507a4a70160"
-
-[[package]]
-name = "tailwind-importer"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "19e0038125943f21bee4fa6742f7dc1987bb4d3a0b63017a8d22776a2dd76c0e"
-dependencies = [
- "paste",
- "walkdir",
-]
 
 [[package]]
 name = "thiserror"
