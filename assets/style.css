@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.sf-rounded {
+    font-family: ui-rounded;
+}

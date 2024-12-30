@@ -2,19 +2,14 @@
 <head>
     <title>iOS Banner</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .sf-rounded {
-            font-family: ui-rounded;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/output.css">
 </head>
 <body>
 <div class="flex h-full justify-end items-end">
     <div class="flex flex-col h-full w-full justify-center items-center">
-        <h1 class="sf-rounded text-3xl text-white font-semibold">{{ config.ios_banner.title }}</h1>
+        <h1 class="sf-rounded text-3xl text-black dark:text-white font-semibold">{{ config.ios_banner.title }}</h1>
         <div>
-            <span class="text-white sf-rounded">{{ config.ios_banner.subtitle }}</span>
+            <span class="text-black dark:text-white sf-rounded">{{ config.ios_banner.subtitle }}</span>
         </div>
     </div>
     <img class="w-20" src="/assets/icon.png"/>

@@ -42,7 +42,7 @@
         <div class="flex flex-col space-y-2">
             {% for link in config.social_links %}
             <a href="{{ link.url }}"
-               class="btn text-lg font-semibold bg-gray-200 dark:bg-zinc-700 text-white p-4 rounded-lg hover:bg-blue-700">
+               class="btn text-lg font-semibold bg-gray-200 dark:bg-zinc-700 text-black dark:text-white p-4 rounded-lg hover:bg-blue-700">
                 {% match link.icon %}
                 {% when Some with (icon) %}
                 <object data="assets/svg/{{ icon }}" type="image/svg+xml" class="w-6 h-6 inline-block mr-2"></object>

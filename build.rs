@@ -5,11 +5,12 @@ use std::{
 
 fn main() {
     println!("cargo:rerun-if-changed=templates/index.html");
+    println!("cargo:rerun-if-changed=templates/ios_banner.html");
     println!("cargo:rerun-if-changed=assets/style.css");
 
     match process::Command::new("sh")
         .arg("-c")
-        .arg("npx @tailwindcss/cli -i assets/style.css -o assets/output.css")
+        .arg("npx @tailwindcss/cli -i assets/style.css -o assets/output.css --minify")
         .output()
     {
         Ok(output) => {

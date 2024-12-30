@@ -18,3 +18,8 @@ icon = "bluesky.svg"
 name = "YouTube"
 url = "https://www.youtube.com/@videah"
 icon = "youtube.svg"
+
+[[social_links]]
+name = "Telegram"
+url = "https://telegram.me/videah"
+icon = "telegram.svg"
